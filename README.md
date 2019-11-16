@@ -55,7 +55,7 @@ test: {
                 "should reject baz": {
                     assert: {
                         invalid: {
-                            value: "bazn"
+                            value: "baz"
                             pass:  true
                         }
                     }
