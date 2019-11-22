@@ -94,3 +94,76 @@ test2: describe: "shared tests": describe: "Nested": sharedTests & {_extraInfo: 
 
 test3: t.Test
 test3: describe: "0": describe: "1": describe: "2": describe: "3": describe: "4": describe: "5": describe: "6": describe: "7": sharedTests & {_extraInfo: "max nesting depth "}
+
+test4: t.Test & {
+	describe: "Array definition": {
+		subject: FooBar
+		it: "should work for invalid": [
+			{assert: invalid: {value: 5}},
+		]
+		it: "should work for valid": [
+			{assert: valid: {value: "foo"}},
+		]
+		it: "should allow both invalid and valid": [
+			{assert: valid: {value:   "foo"}},
+			{assert: invalid: {value: 5}},
+		]
+		it: "should allow multiple valid": [
+			{assert: valid: {value: "foo"}},
+			{assert: valid: {value: "foo1"}},
+			{assert: valid: {value: "foo2"}},
+			{assert: valid: {value: "foo3"}},
+		]
+		it: "should allow multiple invalid": [
+			{assert: invalid: {value: 0}},
+			{assert: invalid: {value: 1}},
+			{assert: invalid: {value: 2}},
+			{assert: invalid: {value: 3}},
+		]
+		it: "should allow multiple valid and invalid": [
+			{assert: valid: {value:   "foo"}},
+			{assert: invalid: {value: 0}},
+			{assert: valid: {value:   "foo1"}},
+			{assert: invalid: {value: 1}},
+			{assert: valid: {value:   "foo2"}},
+			{assert: invalid: {value: 2}},
+			{assert: valid: {value:   "foo3"}},
+			{assert: invalid: {value: 3}},
+		]
+		describe: "NESTED": {
+			subject: FooBar
+			it: "NESTED should work for invalid": [
+				{assert: invalid: {value: 5}},
+			]
+			it: "NESTED should work for valid": [
+				{assert: valid: {value: "foo"}},
+			]
+			it: "NESTED should allow both invalid and valid": [
+				{assert: valid: {value:   "foo"}},
+				{assert: invalid: {value: 5}},
+			]
+			it: "NESTED should allow multiple valid": [
+				{assert: valid: {value: "foo"}},
+				{assert: valid: {value: "foo1"}},
+				{assert: valid: {value: "foo2"}},
+				{assert: valid: {value: "foo3"}},
+			]
+			it: "NESTED should allow multiple invalid": [
+				{assert: invalid: {value: 0}},
+				{assert: invalid: {value: 1}},
+				{assert: invalid: {value: 2}},
+				{assert: invalid: {value: 3}},
+			]
+			it: "NESTED should allow multiple valid and invalid": [
+				{assert: valid: {value:   "foo"}},
+				{assert: invalid: {value: 0}},
+				{assert: valid: {value:   "foo1"}},
+				{assert: invalid: {value: 1}},
+				{assert: valid: {value:   "foo2"}},
+				{assert: invalid: {value: 2}},
+				{assert: valid: {value:   "foo3"}},
+				{assert: invalid: {value: 3}},
+			]
+		}
+	}
+}
