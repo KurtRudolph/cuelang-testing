@@ -1,11 +1,11 @@
 package t
 
 Describe:: {
-	[_=_]: {
+	[_]: {
 		describe?: Describe
 		subject?:  _
 		it?: {
-			[_=_] : close({
+			[_] : close({
 				assert: valid?: {
 					value: _
 					testsResult = value & subject
