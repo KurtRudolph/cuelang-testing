@@ -1,6 +1,7 @@
 package t
 
 Describe:: {
+	subject?:  _
 	[_]: {
 		describe?: Describe
 		subject?:  _
