@@ -1,6 +1,6 @@
 package t
 
-Describe: {
+Describe:: {
 	[_=_]: {
 		describe?: Describe
 		subject?:  _
@@ -27,7 +27,7 @@ Describe: {
 	}
 }
 
-Test: {
+Test:: {
 	subject: _
 	describe: {
 		Describe
