@@ -9,7 +9,7 @@ Describe: {
 				assert: valid?: {
 					value: _
 					testsResult = value & subject
-					pass: ( *testsResult | _|_ ) != _|_
+					pass: testsResult != _|_
 					if pass == false {
 						error: null & "The value should NOT have resulted in `_|_`. Try running with `cue eval --ignore` and searching for this string"
 					}
@@ -17,7 +17,7 @@ Describe: {
 				assert: invalid?: {
 					value: _
 					testsResult = value & subject
-					pass: ( *testsResult | _|_ ) == _|_
+					pass: testsResult == _|_
 					if pass == false {
 						error: null & "The value SHOULD have resulted in `_|_`. Try running with `cue eval --ignore` and searching for this string"
 					}
