@@ -1,6 +1,8 @@
-# t
+# testing
 
-As bdd assertion package, similar to [ruby rspec](https://github.com/rspec/rspec),
+**NOTE: Still in early beta and subject to breaking API changes**
+
+A assertion package,
 for [cuelang](https://github.com/cuelang/cue).
 
 ## Usage
@@ -16,20 +18,24 @@ one might define tests as follows [`github.com/ipcf/foo/test/foo.cue`](https://g
 ```
 package test
 
-import "github.com/ipcf/t"
+import "github.com/ipcf/testing"
 import "github.com/ipcf/foo"
 
-test: t.Test & {
-	describe: "package foo ": {
-		subject: foo.Bar
-		it: "should accept foo": {
-			assert: valid: value: "foo"
-		}
-		it: "should reject baz": {
-			assert: invalid: value: "baz"
-		}
-		it: "should accept foobar": {
-			assert: valid: value: "foobar"
+testing.T & {
+		test: "foo.Bar": {
+			[t.NumDot]: subject: foo.Bar
+			"0": assert: ok: "foo"
+			"1": assert: notOK: "foobar" // will fail
+			"2": assert: ok: "bar"
+			"3": assert: ok: "barfoo"
+			"4": assert: ok: "barfoo"
+			"5": assert: ok: "barfoofoobarfoo"
+			"6": assert: notOk: ""
+			"7": assert: notOk: "bar1"
+			"8": assert: notOk: "1bar"
+			"9": assert: notOk: int
+			"10": assert: notOk: null
+			"11": assert: notOk: {}
 		}
 	}
 }
@@ -40,48 +46,36 @@ and then evaluate package in the `test/` directory:
 ```
 foo/test [master] » cue eval
 test: {
-    describe: {
-        "package foo ": {
+    BarBaz: {
+        "0": {
             subject: =~"^([foo]|[bar])+$"
-            it: {
-                "should accept foo": {
-                    assert: {
-                        valid: {
-                            value: "foo"
-                            pass:  true
-                        }
-                    }
-                }
-                "should reject baz": {
-                    assert: {
-                        invalid: {
-                            value: "baz"
-                            pass:  true
-                        }
-                    }
-                }
-                "should accept foobar": {
-                    assert: {
-                        valid: {
-                            value: "foobar"
-                            pass:  true
-                        }
-                    }
-                }
+            assert: {
+                ok:   "foo"
+                pass: true
             }
         }
+        "1": {
+            subject: =~"^([foo]|[bar])+$"
+.
+.
+.
+```
+
+Kind of a lot of output so let's just look at failed tests:
+```
+foo/test [master] » cue eval --expression FAIL
+BarBaz: {
+    "1": {
+        subject: =~"^([foo]|[bar])+$"
+        assert: {
+            pass:  false
+            notOk: "foobar"
+        }
     }
-    subject: _
 }
 ```
+Looks like `BarBaz: "1": notOk: "foobar"` failed :+1
 
-Now change a `value` field nested in a `it` field to something you that should fail the assertion.
-NOTE: there are both `valid` and `invalid` value fields in these tests.
-You should see something like the following:
+## LICENSE
 
-```
-foo/test [master●] » cue eval
-test.describe."package foo ".it."should accept foo".assert.valid.error: invalid operation null & "The value should NOT have resulted in `_|_`. Try running with `cue eval --ignore` and searching for this string" (mismatched types null and string):
-    ../cue.mod/pkg/github.com/ipcf/t/t.cue:14:14
-    ../cue.mod/pkg/github.com/ipcf/t/t.cue:14:21
-```
+MIT License, see [LICENSE](LICENSE)
