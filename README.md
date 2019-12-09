@@ -23,7 +23,7 @@ import "github.com/ipcf/foo"
 
 testing.T & {
 		test: "foo.Bar": {
-			[t.NumDot]: subject: foo.Bar
+			[testing.NumDot]: subject: foo.Bar
 			"0": assert: ok: "foo"
 			"1": assert: notOK: "foobar" // will fail
 			"2": assert: ok: "bar"
