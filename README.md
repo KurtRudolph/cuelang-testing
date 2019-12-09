@@ -7,33 +7,34 @@ for [cuelang](https://github.com/cuelang/cue).
 
 ## Usage
 
-Given [`github.com/ipcf/foo/foo.cue`](https://github.com/ipcf/foo/blob/master/foo.cue):
+Given [`github.com/ipcf/foo/foo.cue`](https://github.com/ipcf/foo/tree/c62ed80729577af59545857dec7f2b3aedb97b89/foo.cue):
 ```
 package foo
 
 Bar: =~ "^([foo]|[bar])+$"
 ```
 
-one might define tests as follows [`github.com/ipcf/foo/test/foo.cue`](https://github.com/ipcf/foo/blob/master/test/foo.cue):
+one might define tests as follows [`github.com/ipcf/foo/test/foo.cue`](https://github.com/ipcf/foo/tree/c62ed80729577af59545857dec7f2b3aedb97b89/foo.cue):
 ```
 package test
 
 import "github.com/ipcf/testing"
+
 import "github.com/ipcf/foo"
 
 testing.T & {
 	test: "foo.Bar": {
 		[testing.NumDot]: subject: foo.Bar
-		"0": assert: ok: "foo"
-		"1": assert: notOk: "foobar" // will fail
-		"2": assert: ok: "bar"
-		"3": assert: ok: "barfoo"
-		"4": assert: ok: "barfoo"
-		"5": assert: ok: "barfoofoobarfoo"
-		"6": assert: notOk: ""
-		"7": assert: notOk: "bar1"
-		"8": assert: notOk: "1bar"
-		"9": assert: notOk: int
+		"0": assert: ok:     "foo"
+		"1": assert: notOk:  "foobar" // will fail
+		"2": assert: ok:     "bar"
+		"3": assert: ok:     "barfoo"
+		"4": assert: ok:     "barfoo"
+		"5": assert: ok:     "barfoofoobarfoo"
+		"6": assert: notOk:  ""
+		"7": assert: notOk:  "bar1"
+		"8": assert: notOk:  "1bar"
+		"9": assert: notOk:  int
 		"10": assert: notOk: null
 		"11": assert: notOk: {}
 	}
