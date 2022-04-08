@@ -3,7 +3,7 @@ package test
 import "github.com/ipcf/testing"
 
 testing.T & {
-	BarBaz = =~"^([foo]|[bar])+$"
+	let BarBaz = =~"^([foo]|[bar])+$"
 
 	test: "BarBaz": {
 		[testing.NumDot]: subject: BarBaz
@@ -21,7 +21,7 @@ testing.T & {
 		"11": assert: notOk: {}
 	}
 
-	FooBar = close({
+	let FooBar = close({
 		thing:    string
 		greeting: "hey" | "hello"
 		result:   "\(greeting) \(thing)"
@@ -60,7 +60,7 @@ testing.T & {
 		"12": assert: notOk: "0f1"
 	}
 
-	someFailures = {
+	let someFailures = {
 		"0": {subject: string, assert: {ok: "shouldPass", pass: true}}
 		"1": {subject: string, assert: {notOk: "shouldFail", pass: false}}
 		"2": {subject: string, assert: {ok: 4, pass: false}}
