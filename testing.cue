@@ -3,8 +3,8 @@ package testing
 T: {
 	test: Test
 	let test_ = test
-	FAIL: (checkTests & {passValue: false, "test": test_}).result
-	PASS: (checkTests & {passValue: true, "test":  test_}).result
+	FAIL: (#checkTests & {passValue: false, "test": test_}).result
+	PASS: (#checkTests & {passValue: true, "test":  test_}).result
 }
 
 NumDot: =~"^[0-9]+([.]?[0-9])*$"
@@ -23,7 +23,7 @@ Test: {
 	}
 }
 
-checkTests: {
+#checkTests: {
 	passValue?: bool
 	test:       Test
 	result: {
@@ -38,7 +38,7 @@ checkTests: {
 			}
 		}
 		for k, v in test_ if (k != "assert" && k != "subject") {
-			let failedTests = (checkTests & {test: v, passValue: passValue_}).result
+			let failedTests = (#checkTests & {test: v, passValue: passValue_}).result
 			if !(isStructEmpty & {struct: failedTests}).result {
 				"\(k)": failedTests
 			}
