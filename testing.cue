@@ -15,11 +15,11 @@ Test: {
 	assert?:                    {
 		ok: _
 		let testResult = ok & subject
-		pass: testResult != _|_
+		pass: (*_|_ | testResult) != _|_
 	} | {
 		notOk: _
 		let testResult = notOk & subject
-		pass: testResult == _|_
+		pass: (*_|_ | testResult) == _|_
 	}
 }
 
