@@ -37,14 +37,13 @@ checkTests: {
 				}
 			}
 		}
-		for k, v in test_ {
-			if (k != "assert" && k != "subject") {
-				let failedTests = (checkTests & {test: v, passValue: passValue_}).result
-				if !(isStructEmpty & {struct: failedTests}).result {
-					"\(k)": failedTests
-				}
+		for k, v in test_ if (k != "assert" && k != "subject") {
+			let failedTests = (checkTests & {test: v, passValue: passValue_}).result
+			if !(isStructEmpty & {struct: failedTests}).result {
+				"\(k)": failedTests
 			}
 		}
+
 	}
 }
 
